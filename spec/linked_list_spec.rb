@@ -47,5 +47,15 @@ RSpec.describe LinkedList, type: :spec do
         list.insert(1, "Lawson")
 
         expect(list.to_string).to eq("The McKinney family, followed by the Lawson family, followed by the Brooks family, followed by the Henderson family")
+
+        expect(list.find(2,1)).to eq("The Brooks family")
+        expect(list.find(1,3)).to eq("The Lawson family, followed by the Brooks family, followed by the Henderson family")
+        expect(list.includes?("Brooks")).to eq(true)
+        expect(list.includes?("Chapman")).to eq(false)
+
+        list.pop # Print => The Henderson family has died of dysentery
+        list.pop # Print => The Brooks family has died of dysentery
+
+        expect(list.to_string).to eq("The McKinney family, followed by the Lawson family")
     end
 end

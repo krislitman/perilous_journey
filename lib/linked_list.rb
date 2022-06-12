@@ -5,6 +5,66 @@ class LinkedList
         @head = nil
     end
 
+    def includes?(surname)
+        found = false
+        each do |n|
+            if n.surname == surname
+                found = true
+            end
+        end
+        found
+    end
+
+    def pop
+        each do |n|
+            if n.next_node.next_node.nil?
+                to_print = n.next_node.surname
+                n.next_node = nil
+            end
+            "The #{to_print} family has died of dysentery"
+        end
+    end
+
+    def remove(position)
+        c = 0
+        each do |n|
+            if position == c
+                n.next_node = nil
+                return n
+            end
+            c += 1
+        end
+    end
+
+    def create_and_print(new_nodes)
+        list = LinkedList.new
+        new_nodes.each_with_index do |node, index|
+            if index == 0
+                list.append(node)
+            else
+                list.insert(index, node)
+            end
+        end
+        list.to_string
+    end
+
+    def find(position, families)
+        c = 0
+
+        each do |n|
+            if position == c
+                new_nodes = []
+                temp = n.dup
+                families.times do
+                    new_nodes << temp.surname
+                    temp = temp.next_node
+                end
+                return create_and_print(new_nodes)
+            end
+            c += 1
+        end
+    end
+
     def each
         node = @head
 
@@ -16,7 +76,7 @@ class LinkedList
     end
 
     def append(node)
-        if @head.nil?
+        if empty?
             @head = Node.new(node)
         else
             @head.next_node = Node.new(node)
